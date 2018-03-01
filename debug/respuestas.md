@@ -42,14 +42,15 @@ Program received signal SIGSEGV, Segmentation fault.
 
 # ¿Cuál fue el problema? (Pongo pedazo de código para explicar)
   int *a, *b;
-  int n = 3;
+  int n = 3;i
   int i, sum;
 
-Estoy declarando dos punteros (*a y *b), pero no los estoy definiendo ni asignando ningún valor. Entonces 
-cuando el programa los vaya a utilizar no sabe que valores tienen ni donde están porque tampoco tienen
-asignado un espacio de memoria. Por eso me tira un segmentation fault, ya que este error está asociado a 
-problemas con el espacio de memoria. Otra manera de darme cuenta de esto es cuando incorporo el flag -Wall
-a la compilación.Justamente el **warning que me tira** es que las variables a y b no está inicializadas.
+Estoy declarando dos punteros (*a y *b), pero no los estoy definiendo ni asignando ningún valor. Es decir, solo 
+tienen una memoria de 8 bytes allocateada pero nada mas. No se sabe donde y tampoco tengo idea de como es o va a 
+ser "a" y "b" Entonces cuando el programa los vaya a utilizar no sabe que valores tienen ni donde están porque 
+tampoco tienen asignado un espacio de memoria. Por eso me tira un segmentation fault, ya que este error está 
+asociado a problemas con el espacio de memoria. Otra manera de darme cuenta de esto es cuando incorporo el flag 
+-Wall a la compilación.Justamente el **warning que me tira** es que las variables a y b no está inicializadas.
 
 # Solución
 
@@ -72,5 +73,9 @@ para que cada array cuente con 3 elementos, entonces ahora no va a haber problem
   a = malloc(n*sizeof(int)); ** allocateo el array "a" con una dimensión de "n veces" el tamaño de un entero**
   b = malloc(n*sizeof(int)); ** allocateo el array "b" con una dimensión de "n veces" el tamaño de un entero **
 
-Sigo declarando a y b como punteros pero luego los "allocateo" con **malloc** "n veces" el tamaño que ocupa
-un entero que es 4 bytes. 
+Sigo declarando a y b como punteros pero luego los "allocateo" memoria en el heap con **malloc** "n veces" 
+el tamaño que ocupa un entero que es 4 bytes. 
+
+# Programa: add_array_static.c
+
+
