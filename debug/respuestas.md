@@ -73,8 +73,13 @@ para que cada array cuente con 3 elementos, entonces ahora no va a haber problem
   a = malloc(n*sizeof(int)); ** allocateo el array "a" con una dimensión de "n veces" el tamaño de un entero**
   b = malloc(n*sizeof(int)); ** allocateo el array "b" con una dimensión de "n veces" el tamaño de un entero **
 
+ 
+  free(a)
+  free(b)
 Sigo declarando a y b como punteros pero luego los "allocateo" memoria en el heap con **malloc** "n veces" 
-el tamaño que ocupa un entero que es 4 bytes. 
+el tamaño que ocupa un entero que es 4 bytes. Lo que si tengo que tener el cuidado de liberar la memoria 
+que asigné dinámicamente para a y b de forma tal que no quede utilizada y esté disponible para ser ocupada
+por alguna otra función, array, etc.
 
 # Programa: add_array_static.c
 
