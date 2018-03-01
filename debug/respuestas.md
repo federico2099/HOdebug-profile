@@ -83,4 +83,14 @@ por alguna otra función, array, etc.
 
 # Programa: add_array_static.c
 
+Al hacer un make sin flags de debuggeo obtengo algo similar a lo anterior:
 
+gcc   -c add_array_static.c -o add_array_static_c.o
+add_array_static.c: In function ‘add_array’:
+add_array_static.c:7:12: warning: implicit declaration of function ‘abs’ [-Wimplicit-function-declaration]
+     sum += abs(a[i]);
+ 
+ En este caso el programa compila y corre pero el resultado es incorrecto (ya que el add_array_nobugs.c)
+En este caso el programa corre pero tira "cualquier verdura como" resultado. El problema es que en el loop de main donde asigna valores a alos arrays a y b corre hasta i < n. Es decir corre "3 vueltas" asignando valores de 0 a 2. Sin embargo en la función add_array el loop está programado para que corra hasta i <= n+1. Es decir de 0 a 4. Entra 5 veces!!!!. Va a pedir 5 valores de a y b a pesar de que yo le asigné 3. Como tengo definido los arrays en el stack, los elementos a[3] o b[3] y a[4] o b[4]. No tienen valores asignados por mi. Sin embargo se va a ir a buscar los valores que estén en las posiciones "punto de partida de a (donde lo definí) + 4*4bytes" y "punto de partida de a (donde lo definí) + 5*4bytes" y lo mismo para b. El tema es que en esas posiciones hay valores guardados que vienen de asignaciones que se han hecho previamente de otros programas y mi programa va a estar tomando esos valores y por eso el resultado es cualquier cosa.
+
+La diferencia con el caso dinámico es que cuando se allocatean los elementos y se pide memoria en el heap,la computadora asigna un especio de memoria y la libera de forma tal que tenga todos 0. Entonces en este caso (al igual que en el segfault que lo definí como arrays dinámicos que piden memoria al heap) por más que el contador de la función add_arrays "se pase" y busque 2 elementos que no estaban definidos en el main para a y b, los valores que va a ir a buscar de esos elementos en las posiciones "punto de partida de a (donde lo definí) + 4*4bytes" y "punto de partida de a (donde lo definí) + 5*4bytes" son 0 entonces esto no afecta a la suma aunque el bug siga estando
