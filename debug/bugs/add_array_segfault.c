@@ -11,6 +11,7 @@ int add_array(int *a, int *b, int n){
 }
 
 int main(int argc, char **argv) {
+//modificado
   int *a, *b;
   int n = 3;
   int i, sum;
