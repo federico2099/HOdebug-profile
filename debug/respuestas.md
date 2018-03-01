@@ -57,20 +57,20 @@ Puede solucionarse de dos maneras:
 
 ## Manera 1
 
-  int n = 3;
-  int a[n], b[n];
+  int n = 3;  **Defino un entero "n" = 3**
+  int a[n], b[n]; **Defino arrays "a" y "b" con dimensión "n"**
   int i, sum;
 
 Acá estoy declarando y definiendo los arrays a y b y además les estoy asignando un espacio de memoria en el **stack**,
-para que cada array cuente con 3 elementos.
+para que cada array cuente con 3 elementos, entonces ahora no va a haber problemas para que se les asigne valores
 
 ## Manera 2
 
-  int *a, *b;
-  int n = 3;
+  int *a, *b; **Defino punteros a y b**
+  int n = 3;  **Defino un entero n = 3**
   int i, sum;
-  a = malloc(n*sizeof(int));
-  b = malloc(n*sizeof(int));
+  a = malloc(n*sizeof(int)); ** allocateo el array "a" con una dimensión de "n veces" el tamaño de un entero**
+  b = malloc(n*sizeof(int)); ** allocateo el array "b" con una dimensión de "n veces" el tamaño de un entero **
 
 Sigo declarando a y b como punteros pero luego los "allocateo" con **malloc** "n veces" el tamaño que ocupa
 un entero que es 4 bytes. 
