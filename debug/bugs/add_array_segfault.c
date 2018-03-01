@@ -11,15 +11,18 @@ int add_array(int *a, int *b, int n){
 }
 
 int main(int argc, char **argv) {
-//modificado
   int *a, *b;
   int n = 3;
   int i, sum;
+  a = malloc(n*sizeof(int));
+  b = malloc(n*sizeof(int));
   for (i = 0; i < n; i++) {
     a[i] = i;
     b[i] = i;
   }
   sum = add_array(a, b, 3);
   printf("The addition is %d\n", sum);
+  free(a);
+  free(b); 
   return 0;
 }
