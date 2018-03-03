@@ -112,3 +112,27 @@ como arrays dinámicos que piden memoria al heap) por más que el contador de la
 busque 2 elementos que no estaban definidos en el main para a y b, los valores que va a ir a buscar de esos 
 elementos en las posiciones "punto de partida de a (donde lo definí) + 4*4bytes" y "punto de partida de a 
 (donde lo definí) + 5*4bytes" son 0 entonces esto no afecta a la suma aunque el bug siga estando.
+
+# Ejercicios de la carpeta /sigsegv/FORTRAN/
+
+En este caso hay 3 códigos, source.f90, source_2.f90 y my_func.f. Los códigos source* llaman a my_func.f. Para el
+caso del código source.f90 el problema es el argumento cuando llama a la función/subrutina my_func.f. Esta 
+subrutina requiere tres elementos en su argumento, la matriz A, la C y el tamaño para su dimensión a través de 
+"SIZE". El problema es que source llama a my_func.f de la siguiente manera:
+
+  CALL mat_Tmat_mul( A, SIZE ) ** no le pasa la matriz C**
+
+Esto genera el siguiente error:
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Este error lo tira al correr el programa, durante la compilación y linkeo no muestra error. Al correr el gdb
+y pedirle un break cuando llama a la subrutina puede verse que el programa se rompe al ingresar a la subrutina
+por lo tanto al ver los argumentos es claro que la forma de resolverlo es:
+
+  CALL mat_Tmat_mul( A, C, SIZE ) **agregando la matriz C al argumento del llamado**
+
+Para el caso del programa source_2.f90, la situación es levemente distinta porque en el argumento del llamado
+se pasan ambas matrices pero no el valor de su dimensión (no le paso SIZE). Sin embargo en la subrutina "mu_func.f"
+se asigna este valor como "0". Por lo tanto el programa compila, linkea y corre sin error pero el resultado que
+producirá está mal. La forma de solucionarlo es corregir el argumento del llamado a la subrutina agregando SIZE.
