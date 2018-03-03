@@ -42,7 +42,7 @@ PROGRAM DEBUG
 
   C = 0.0
 
-  CALL mat_Tmat_mul( A, SIZE )
+  CALL mat_Tmat_mul( A, C, SIZE )
 
   DEALLOCATE( A );
   DEALLOCATE( C );
