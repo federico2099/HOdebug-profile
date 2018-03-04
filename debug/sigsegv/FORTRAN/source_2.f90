@@ -42,9 +42,9 @@ PROGRAM DEBUG
 
   C = 0.0
 
-  CALL mat_Tmat_mul( A, C )
-
-  DEALLOCATE( A );
+  CALL mat_Tmat_mul( A, C, SIZE ) !Agrego SIZE para que la 
+                                  !subrutina tenga todos los
+  DEALLOCATE( A );                !argumentos
   DEALLOCATE( C );
 
   STOP
