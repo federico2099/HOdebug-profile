@@ -5,6 +5,8 @@
       REAL*4 temp( SIZE, SIZE)   
       INTEGER i, j, k
 
+      write(*,*) size
+
       DO i = 1, SIZE 
          DO j = 1, SIZE 
             temp( j, i ) = A( i, j )
